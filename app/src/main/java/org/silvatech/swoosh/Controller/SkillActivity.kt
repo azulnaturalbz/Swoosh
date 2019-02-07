@@ -1,5 +1,4 @@
 package org.silvatech.swoosh.Controller
-
 import android.content.Intent
 import android.os.Bundle
 import android.view.View
@@ -12,10 +11,23 @@ import org.silvatech.swoosh.Utilities.EXTRA_PLAYER
 class SkillActivity : BaseActivity() {
 
     lateinit var player: Player
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_skill)
         player = intent.getParcelableExtra(EXTRA_PLAYER)
+    }
+
+    override fun onSaveInstanceState(outState: Bundle?) {
+        super.onSaveInstanceState(outState)
+        outState?.putParcelable(EXTRA_PLAYER,player)
+    }
+
+    override fun onRestoreInstanceState(savedInstanceState: Bundle?) {
+        super.onRestoreInstanceState(savedInstanceState)
+        if (savedInstanceState != null) {
+            player = savedInstanceState.getParcelable(EXTRA_PLAYER)
+        }
     }
 
     fun onSkillFinishClicked(view: View){
